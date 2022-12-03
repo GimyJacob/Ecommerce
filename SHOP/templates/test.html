@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{ category.description|truncatewords:155}}
+    {% else %}
+        Welcome to ALL IN ONE SHOP...where you can buy all items..
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name}} -ABC Store
+    {% else %}
+        Our New Collections-ABC Store
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+    <div>
+        <div class="row my_row">
+            <div class="mx-auto">
+            <p>
+                <a href="{% url 'shopApp:allProductCategory' %}">Our Product Collections</a>
+            </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+<div class="mx-auto">
+    {% if category %}
+    <img class="my_image" src="{{category.image.url}}" alt="{{category.name}}">
+</div>
+    <br>
+<div>
+    <h1 class="text-center my_title">
+        {{category.name}}</h1>
+    <p class="text_justify ">{{category.description}}</p>
+    </h1>
+</div>
+    {% else %}
+<div>
+    <img class="my_image my_image_padding" src="{% static 'img/banner.png' %}" alt="our products" width="1250px" height="=350px">
+</div>
+<br>
+<div>
+    <h1 class="text-center my_title">
+        Our Product Collections
+    </h1>
+    <p class="text_justify">
+       Some dummy Contents.....the same color might be used in hundreds of different places, requiring global search and replace if that color needs to change. Custom properties allow a value to be stored in one place, then referenced in multiple other places. An additional benefit is semantic identifiers. For example, --main-text-color is easier to understand than #00ff00, especially if this same color is also used in other contexts.
+    </p>
+</div>
+    {% endif %}
+
+<div>
+    <div>
+           {% for product in products %}
+        <div class="container">
+            <div class="row">
+                <a href="{{product.get_url}}"><img src="{{product.image.url}}" alt="{{product.name}}" width="500px" height="300px"></a>
+            <div>
+                <h4>{{product.name}}</h4>
+                 <h3>{{product.price}}</h3>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
